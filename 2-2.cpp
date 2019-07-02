@@ -1,6 +1,12 @@
 /* 优化算法：分房子和空地两种类型，只记录房子的坐标
 计算空地到各个房间的距离返回最小值
  */
+
+/* 进一步优化的空间：
+    1. 不使用vector 
+    2. 计算距离时就可以求出最小值，不必分开求解
+    */
+
 #include <iostream>
 #include <cmath>
 #include <algorithm>
@@ -46,7 +52,7 @@ void input(std::vector<Coordinate> & house, std::vector<Coordinate> & space,cons
 std::vector<int> all_distance(std::vector<Coordinate> & house, std::vector<Coordinate> & space)
 {
     std::vector<int> ret;
-    //返回空地到其他地方的距离 
+    //返回空地到其他地方的距离
     for (auto i = space.begin(); i != space.end(); i++)
     {
         int distance = 0;

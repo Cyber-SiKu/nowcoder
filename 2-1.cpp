@@ -1,5 +1,6 @@
 /* 一般算法，遍历矩阵，计算每一个0点到1点的距离之和，返回其中的最小值*/
-/* 优化算法：分房子和空地两种类型，只记录房子的坐标 */
+
+
 #include <iostream>
 #include <vector>
 #include <cmath>
