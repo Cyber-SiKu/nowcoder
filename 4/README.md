@@ -29,7 +29,7 @@ $1 \leq Pos[i].x \leq Pos[i].y \leq 10^5$
 
 最坏情况下两人都感染
 
-![4-1](4-exm1.png)
+![4-1](https://github.com/Cyber-SiKu/newcoder/blob/master/4/4-exm1.png)
 
 # 示例2
 
@@ -45,4 +45,4 @@ $1 \leq Pos[i].x \leq Pos[i].y \leq 10^5$
 
 最坏情况下只有一个人被感染
 
-![4-2](4-exm2.png)
+![4-2](https://github.com/Cyber-SiKu/newcoder/blob/master/4/4-exm2.png)
