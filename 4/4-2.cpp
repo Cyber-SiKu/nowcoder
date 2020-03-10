@@ -46,9 +46,6 @@ public:
     
     int UpdateRange(Point& Range, const Point& infected_range);
     // 根据感染者的活动范围 infected 更新 range ,感染域未发生变化返回 0
-
-    int Divide(int PersonID, vector<Point>& PeoplePosition);
-    // 类似于快排的第一步根据 PeoplePosition[PersonID].x 将感染者划分为两组，左边为<，右边为>,返回感染者新位置的ID
 };
 
 int main(int argc, char ** argv) {
@@ -163,5 +160,3 @@ int Solution::UpdateRange(Point& Range, const Point& infected_range) {
     }
     return ret;
 }
-
-

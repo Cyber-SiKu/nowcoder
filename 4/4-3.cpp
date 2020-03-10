@@ -21,6 +21,7 @@ using std::vector;
 using std::sort;
 using std::find_if;
 using std::iterator;
+using std::swap;
 
 struct Point {
     int x;
@@ -46,6 +47,9 @@ public:
     
     int UpdateRange(Point& Range, const Point& infected_range);
     // 根据感染者的活动范围 infected 更新 range ,感染域未发生变化返回 0
+    
+    int Divide(int PersonID, vector<Point>& PeoplePosition);
+    // 类似于快排的第一步根据 PeoplePosition[PersonID].x 将感染者划分为两组，左边为 <=，右边为 >,返回感染者新位置的ID
 };
 
 int main(int argc, char ** argv) {
@@ -53,7 +57,11 @@ int main(int argc, char ** argv) {
     int Pid;
     vector<Point> Position;
     
-    S.input(Pid, Position);
+    // S.input(Pid, Position);
+    // Pid = 1; Position = {{1,2},{2,3}};
+    // Pid = 1; Position = {{1,2},{3,4}};
+    // Pid = 1; Position = {{1,2}, {3,4}, {4,5}};
+    Pid = 2;  Position = {{5,6}, {1,2}, {4,5}, {7,8}, {3,4}};
     int n = S.CatchVirus(Pid, Position);
     cout << n << endl;
 
@@ -75,34 +83,27 @@ void Solution::input(int& Personid, vector<Point>& PeoplePosition) {
 }
 
 void Solution::output() {
-    // cout << " Pid:" << Pid << endl;
-    // cout << "People Position:" << endl;
-    // for (size_t i = 0, e =  PeoplePosition.size(); i < e; i++)
-    // {
-    //     cout << "(" << PeoplePosition[i].x << "," << PeoplePosition[i].y << ")" << endl;
-    // }
-    
 }
 
-int Solution::CatchVirus(int Personid, vector<Point>& PeoplePosition){
+int Solution::CatchVirus(int Personid, vector<Point>& PeoplePosition) {
+    Personid = this->Divide(Personid, PeoplePosition);
     Point Range;
-    Range = PeoplePosition[Personid]; //  将感染者初始化为第一个确认者的活动范围
+    Range = PeoplePosition[Personid]; //  将感染域初始化为第一个确认者的活动范围
     int Infected; // 保存感染者的人数
     Infected = 1;
+
+    vector<Point>::iterator mid_pos = PeoplePosition.begin()+Personid; // 获取感染者的位置
+
+    sort(PeoplePosition.begin(), mid_pos, [] (Point a, Point b) {
+        return a.y < b.y;
+    }); // 左边组 按 y 升序排序
     
-    sort(PeoplePosition.begin(), PeoplePosition.end(),[] (Point a, Point b) {
+    sort(mid_pos+1, PeoplePosition.end(), [] (Point a, Point b) {
         return a.x < b.x;
-    }); // 按 x 升序排序
-    
-    vector<Point>::iterator mid_pos = find_if(PeoplePosition.begin(), PeoplePosition.end(),[Range](Point a){
-        return (a.x == Range.x && a.y == Range.y);
-    }); // 获取感染者的位置
+    }); // 右边组 按 x 升序排序
 
     if (mid_pos != PeoplePosition.begin()) {
         // 左边位置有元素
-        sort(PeoplePosition.begin(), mid_pos,[] (Point a, Point b) {
-            return a.y < b.y;
-        }); // 左边按 y 升序排列
         while (PeoplePosition.begin() != mid_pos-Infected+1) { // 直到排查到起始位置
             if ((*(mid_pos-Infected)).y >= Range.x) {
                 // 左边 y 最大的大于感染的 x 说明感染
@@ -116,23 +117,21 @@ int Solution::CatchVirus(int Personid, vector<Point>& PeoplePosition){
         }
     }
 
-    if (mid_pos != PeoplePosition.end()) {
+    if (mid_pos != PeoplePosition.end()-1) {
         // 右边位置有元素
-        int count = 0;
-        while (PeoplePosition.end()-1 != mid_pos+count) { // 排查至最右边
-            if ((*(mid_pos+count+1)).x <= Range.y ) {
+        int count = 1;
+        while (PeoplePosition.end() != mid_pos+count) { // 排查至最右边
+            if ((*(mid_pos+count)).x <= Range.y) {
                 // 右边元素的 x 小于感染的 y 说明感染
                 // 增加感染者，更新感染范围
+                UpdateRange(Range, *(mid_pos+count));
                 ++Infected;
                 ++count;
-                UpdateRange(Range, *(mid_pos+count));
             } else {
                 // 右边再无感染者
                 break;
             }
-            
         }
-        
     }
 
     return Infected;
@@ -159,4 +158,23 @@ int Solution::UpdateRange(Point& Range, const Point& infected_range) {
         ret = 1;
     }
     return ret;
+}
+
+int Solution::Divide(int PersonID, vector<Point>& PeoplePosition) {
+    swap(PeoplePosition[0], PeoplePosition[PersonID]); // 使得确认感染者为第一个元素
+    int left = 1;
+    int right = PeoplePosition.size()-1;
+    while (left < right) {
+        while (PeoplePosition[left].x < PeoplePosition[0].x) {
+            ++left;
+        }
+        while (PeoplePosition[right].x > PeoplePosition[0].x) {
+            --right;
+        };
+        swap(PeoplePosition[left], PeoplePosition[right]);
+    }
+    swap(PeoplePosition[left], PeoplePosition[right]); // 撤销最后一次交换
+    swap(PeoplePosition[0], PeoplePosition[right]);
+    
+    return right;
 }
