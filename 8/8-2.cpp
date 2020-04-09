@@ -36,6 +36,7 @@ public:
     string solve(vector<int>& param, vector<Point>& edge);
     void edge2map(const vector<Point>& edge);
     string BFS(int start);
+    string BFS(int start, int i);
 };
 
 
@@ -44,7 +45,12 @@ string Solution::solve(vector<int>& param, vector<Point>& edge) {
     isVisted.resize(param[0]+1, false);
     edge2map(edge);
     isVisted[1] = true;
-    return BFS(1);
+    for (auto i : map[1]) {
+        if (BFS(i, 0).compare("Yes")) {
+            return "Yes";
+        }
+    }
+    return "No";
 }
 
 void Solution::edge2map(const vector<Point>& edge) {
@@ -71,8 +77,25 @@ string Solution::BFS(int start) {
                 isVisted[i] = true;
                 tmp.push(i);
             }
+            
         }
     }
+    return "No";
+}
+
+string Solution::BFS(int start, int i) {
+    if (start == 1) {
+        return "Yes";
+    }
+    for(auto j : map[start]) {
+        if(isVisted[j] == false) {
+            isVisted[j] = true;
+            if (BFS(j, i).compare("Yes")) {
+                return "Yes";
+            }
+        }
+    }
+
     return "No";
 }
 
