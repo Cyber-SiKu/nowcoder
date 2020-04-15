@@ -1,6 +1,6 @@
 /**
  * 从1开始广度优先遍历，找到1时返回
- * 方法没有问题只有 60%的通过率
+ * bug: 不宜使用广度优先，因为第一步和最后一步必然是邻接的点
 */
 #include <vector>
 #include <string>
@@ -57,18 +57,18 @@ void Solution::edge2map(const vector<Point>& edge) {
 string Solution::BFS(int start) {
     queue<int> tmp;
     tmp.push(start);
+    int pre = 0;
     while (!tmp.empty()) {
         /* 栈中仍有元素时 */
         int x = tmp.front();
         tmp.pop();
+        isVisted[x] = true;
         for(int i : map[x]) {
             if(i == start) {
                 // 可以从start 再回到start
                 return "Yes";
             }
             if (isVisted[i] == false) {
-                // i 尚未加入过tmp
-                isVisted[i] = true;
                 tmp.push(i);
             }
         }
@@ -82,8 +82,11 @@ int main(int argc, char *argv[]) {
     // vector<int> param = {4,4};
     // vector<Point> edge = {Point(1,2), Point(2, 3), Point(3,4), Point(4,1)};
 
-    vector<int> param = {7,11};
-    vector<Point> edge = {Point(3,2), Point(5,1),Point(1,6), Point(6,4), Point(7,2), Point(7,4), Point(4,2), Point(1,3),Point(6,3), Point(3,7), Point(5,6)};
+    vector<int> param = {5,5};
+    vector<Point> edge = {Point(1,2), Point(2,3),Point(3,4), Point(4,5), Point(5,2)};
+
+    // vector<int> param = {7,11};
+    // vector<Point> edge = {Point(3,2), Point(5,1),Point(1,6), Point(6,4), Point(7,2), Point(7,4), Point(4,2), Point(1,3),Point(6,3), Point(3,7), Point(5,6)};
 
     cout << s.solve(param, edge) << endl;
     return 0;

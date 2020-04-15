@@ -1,17 +1,19 @@
 /**
- * 从1开始广度优先遍历，找到1时返回
- * 方法没有问题只有 60%的通过率
+ * 从1开始深度优先遍历，找到1时返回
+ * 
+ * 运行时间：135ms
+ * 占用内存：9800k
 */
 #include <vector>
 #include <string>
 #include <iostream>
-#include <queue>
+#include <stack>
 
 using std::vector;
 using std::string;
 using std::cout;
 using std::endl;
-using std::queue;
+using std::stack;
 
 struct Point;
 class Solution;
@@ -35,8 +37,7 @@ public:
      */
     string solve(vector<int>& param, vector<Point>& edge);
     void edge2map(const vector<Point>& edge);
-    string BFS(int start);
-    string BFS(int start, int i);
+    bool DFS(int start);
 };
 
 
@@ -44,13 +45,11 @@ string Solution::solve(vector<int>& param, vector<Point>& edge) {
     map.resize(param[0]+1);
     isVisted.resize(param[0]+1, false);
     edge2map(edge);
-    isVisted[1] = true;
-    for (auto i : map[1]) {
-        if (BFS(i, 0).compare("Yes")) {
-            return "Yes";
-        }
+    if (DFS(1)) {
+        return "Yes";
+    } else {
+        return "No";
     }
-    return "No";
 }
 
 void Solution::edge2map(const vector<Point>& edge) {
@@ -60,43 +59,35 @@ void Solution::edge2map(const vector<Point>& edge) {
     }
 }
 
-string Solution::BFS(int start) {
-    queue<int> tmp;
-    tmp.push(start);
-    while (!tmp.empty()) {
-        /* 栈中仍有元素时 */
-        int x = tmp.front();
-        tmp.pop();
-        for(int i : map[x]) {
-            if(i == start) {
-                // 可以从start 再回到start
-                return "Yes";
+bool Solution::DFS(int start) {
+    stack<int> s_point;
+    s_point.push(start);
+    isVisted[start] = true;
+    int pre = 0;
+    stack<int> s_pre;
+    s_pre.push(pre);
+    while (!s_point.empty()) {
+        // 栈非空时
+        int cur = s_point.top();
+        s_point.pop();
+        pre = s_pre.top();
+        s_pre.pop();
+        isVisted[cur] = true;
+        for (int i: map[cur]) {
+            if (i == pre) {
+                continue;
+            }
+            if (i == start) {
+                return true;
             }
             if (isVisted[i] == false) {
-                // i 尚未加入过tmp
-                isVisted[i] = true;
-                tmp.push(i);
-            }
-            
-        }
-    }
-    return "No";
-}
-
-string Solution::BFS(int start, int i) {
-    if (start == 1) {
-        return "Yes";
-    }
-    for(auto j : map[start]) {
-        if(isVisted[j] == false) {
-            isVisted[j] = true;
-            if (BFS(j, i).compare("Yes")) {
-                return "Yes";
+                // 当前节点的下一个节点仍未访问时
+                s_point.push(i);
+                s_pre.push(cur);
             }
         }
     }
-
-    return "No";
+    return false;
 }
 
 int main(int argc, char *argv[]) {
@@ -104,9 +95,12 @@ int main(int argc, char *argv[]) {
 
     // vector<int> param = {4,4};
     // vector<Point> edge = {Point(1,2), Point(2, 3), Point(3,4), Point(4,1)};
+    
+    vector<int> param = {5,5};
+    vector<Point> edge = {Point(1,2), Point(2,3),Point(3,4), Point(4,5), Point(5,2)};
 
-    vector<int> param = {7,11};
-    vector<Point> edge = {Point(3,2), Point(5,1),Point(1,6), Point(6,4), Point(7,2), Point(7,4), Point(4,2), Point(1,3),Point(6,3), Point(3,7), Point(5,6)};
+    // vector<int> param = {7,11};
+    // vector<Point> edge = {Point(3,2), Point(5,1),Point(1,6), Point(6,4), Point(7,2), Point(7,4), Point(4,2), Point(1,3),Point(6,3), Point(3,7), Point(5,6)};
 
     cout << s.solve(param, edge) << endl;
     return 0;

@@ -1,5 +1,11 @@
+/**
+ * 运行时间：123ms
+ * 占用内存：10120k
+*/
+
 #include <vector>
 #include <string>
+#include <iostream>
 
 using namespace std;
 
@@ -58,3 +64,16 @@ public:
         return "No";
     }
 };
+
+int main(int argc, char *argv[]) {
+    Solution s;
+
+    // vector<int> param = {4,4};
+    // vector<Point> edge = {Point(1,2), Point(2, 3), Point(3,4), Point(4,1)};
+
+    vector<int> param = {5,5};
+    vector<Point> edge = {Point(1,2), Point(2,3),Point(3,4), Point(4,5), Point(5,2)};
+
+    cout << s.solve(param, edge) << endl;
+    return 0;
+}
