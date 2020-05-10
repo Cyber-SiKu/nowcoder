@@ -36,16 +36,32 @@ int Solution::solve(int n, vector<int>& a)
 {
     long ret = 1;
     // init(n);
-    vector<int> count(n + 1, 0);
+    // vector<int> b(a);
     // bool flag = (n % 2); // n为奇数时true
     for (const int& i : a) {
-        count[i]++;
-    }
-    if (n % 2 == 0) {
-        /* code */
-    }
+        if ((n % 2) == (i % 2) // 总人数和每个人的左右差奇偶性不一致
+            || (i > n - 1) // 越界
+            || (i < 0)) // 越界
+        {
+            /* 数值不合法 */
+            ret = 0;
+            break;
+        }
 
-    return ret; // 去掉站o相同位置的人的重复计算
+        int count_i = count(a.begin(), a.end(), i);
+        if ((count_i == 2 && i != 0) // 有两个人站相同位置
+            || (count_i == 1 && i != 0)) // 同一非0数值有一个人
+        {
+            ret = (ret * 2) % magic_number; // ret *= 2;
+        } else if (count_i == 1 && i == 0 && (n % 2) == 1) {
+            /* 人数为奇数，有1人要站到中间位置 */
+            continue;
+        } else {
+            ret = 0;
+            break;
+        }
+    }
+    return ret / 2; // 去掉站o相同位置的人的重复计算
 }
 
 int main(int argc, char const* argv[])
