@@ -48,6 +48,10 @@ Solution::Solution(int N, vector<int> A, vector<int> B)
         for (size_t j = 0; j < N; j++) {
             if (A[i] == B[j]) {
                 array[i] += 1;
+                if (array[i] > 1) {
+                    // 不必继续计算
+                    break;
+                }
             }
         }
     }

@@ -49,6 +49,7 @@ Solution::Solution(int N, vector<int> A, vector<int> B)
 
 int Solution::slove()
 {
+    // 这里可以优化，不求和而是直接判断
     int count = 0;
     for (veciiIter i = array.begin(), e = array.end(); i != e; i++) {
         int sum = accumulate(i->begin(), i->end(), 0); // 按行求和
