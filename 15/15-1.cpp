@@ -20,7 +20,7 @@ public:
 
 long long Solution::solve(int n, vector<int>& a)
 {
-    int ret = 0;
+    long long ret = 0;
     for (int i = 1; i < n; i++) {
         for (int j = i - 1; j >= 0; j--) {
             if (a[j] > a[i]) {
