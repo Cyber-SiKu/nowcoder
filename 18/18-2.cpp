@@ -3,7 +3,13 @@
 穷举算法，挨个试
 */
 
-// #include <algorithm>
+/*
+运行时间：4ms
+
+占用内存：484k
+*/
+
+#include <algorithm>
 #include <cmath>
 #include <iostream>
 #include <iterator>
