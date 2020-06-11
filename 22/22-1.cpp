@@ -2,7 +2,7 @@
  * 暴力求解
  * 使用正则表达替换xy
  * 
- * bug:超时
+ * 超时 33%
 */
 
 #include <iostream>
