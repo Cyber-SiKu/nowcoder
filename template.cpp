@@ -28,5 +28,6 @@ int main(int argc, char* argv[])
 {
     Solution s;
 
+    cout << s << endl;
     return 0;
 }
