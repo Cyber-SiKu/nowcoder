@@ -19,12 +19,17 @@
 
 ### 输入
 
-6 5
-0 2 5
-1 4 3
-2 6 4
-4 6 1
-2 4 3
+6 &nbsp; 5
+
+0 &nbsp; 2 &nbsp; 5
+
+1&nbsp; 4 &nbsp;3
+
+2&nbsp; 6 &nbsp;4
+
+4&nbsp; 6 &nbsp;1
+
+2&nbsp; 4&nbsp; 3
 
 ### 输出
 
