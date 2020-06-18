@@ -70,16 +70,26 @@ double Solution::getHappiness(const vector<int>& cost_time,
     stack<double> stack_able; // 保存下一步可达景点的概率
     double ret = 0.0;
 
-    vector<int> reachable;
-    for (size_t i = 1, e_i = cost_time.size(); i < e_i; i++) {
-        if (cost_time[i] <= k) {
-            reachable.push_back(i);
-        }
-    }
+    // vector<int> reachable;
+    // for (size_t i = 1, e_i = cost_time.size(); i < e_i; i++) {
+    //     if (cost_time[i] <= k) {
+    //         reachable.push_back(i);
+    //     }
+    // }
 
-    int length = reachable.size();
-    double able = double(1.0) / double(length);
-    for (const int& i : reachable) {
+    // int length = reachable.size();
+    // double able = double(1.0) / double(length);
+    // for (const int& i : reachable) {
+    //     // 开始可以游玩的景点
+    //     stack_point.push(i);
+    //     stack_time.push(cost_time[i]);
+    //     stack_able.push(able);
+    //     ret += (able * double(happiness[i]));
+    // }
+
+    int length = cost_time.size() - 1;
+    double able = 1.0 / double(length);
+    for (size_t i = 1, e_i = cost_time.size(); i < e_i; i++) {
         // 开始可以游玩的景点
         stack_point.push(i);
         stack_time.push(cost_time[i]);
