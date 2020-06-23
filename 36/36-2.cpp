@@ -17,7 +17,7 @@ public:
     Solution(unsigned n);
     ~Solution();
     friend ostream& operator<<(ostream& os, const Solution& s);
-    unsigned get_1_number(unsigned n);
+    inline unsigned get_1_number(unsigned n);
 };
 
 Solution::Solution(unsigned n)
@@ -47,7 +47,7 @@ unsigned Solution::get_1_number(unsigned n)
     unsigned ret = 0;
     while (n != 0) {
         ret += (n % 10 == 1 ? 1 : 0);
-        n = 10;
+        n /= 10;
     }
     return ret;
 }
