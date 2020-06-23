@@ -1,7 +1,8 @@
 /**
- * dp 修改为1维
+ * dp 
+ * 时间复杂度过大
+ * 80.0%
 */
-#include <cstring>
 #include <iostream>
 #include <vector>
 
@@ -16,20 +17,19 @@ public:
     Solution(unsigned n);
     ~Solution();
     friend ostream& operator<<(ostream& os, const Solution& s);
+    unsigned get_1_number(unsigned n);
 };
 
 Solution::Solution(unsigned n)
     : outs(0)
 {
-    // dp[0][i] 整数 i 有多少个 1
-    // dp[1][i] 1-i 有多少 1
-    int dp[2][n + 1];
-    memset(dp, 0, sizeof(dp));
+    // dp 1到 i-1 有多少 1
+    int dp = 0;
+    // memset(dp, 0, sizeof(dp));
     for (unsigned i = 1; i <= n; i++) {
-        dp[0][i] = dp[0][i / 10] + (i % 10 == 1 ? 1 : 0);
-        dp[1][i] = dp[1][i - 1] + dp[0][i];
+        dp += this->get_1_number(i);
     }
-    outs = dp[1][n];
+    outs = dp;
 }
 
 Solution::~Solution()
@@ -40,6 +40,16 @@ ostream& operator<<(ostream& os, const Solution& s)
 {
     os << s.outs;
     return os;
+}
+
+unsigned Solution::get_1_number(unsigned n)
+{
+    unsigned ret = 0;
+    while (n != 0) {
+        ret += (n % 10 == 1 ? 1 : 0);
+        n = 10;
+    }
+    return ret;
 }
 
 int main(int argc, char* argv[])
