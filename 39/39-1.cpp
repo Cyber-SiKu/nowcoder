@@ -1,32 +1,15 @@
+/**
+ * 运行时间：5ms
+ * 占用内存：484k
+*/
+
+#include <algorithm>
 #include <iostream>
-#include <iterator>
-#include <set>
-#include <utility>
 #include <vector>
 
 using namespace std;
 
-class goods {
-public:
-    int m;
-    int w;
-    int s;
-    goods(int m, int w, int s)
-        : m(m)
-        , w(w)
-        , s(s)
-    {
-    }
-};
-
-struct compare_good {
-    bool operator()(goods a, goods b)
-    {
-        return a.w < b.w;
-    }
-};
-
-using array = multiset<goods, compare_good>; // [体积]，first:数量， second：价值
+using array = vector<vector<int>>; // [体积]，first:数量， second：价值
 
 class Solution {
 private:
@@ -36,12 +19,19 @@ public:
     Solution(array data, int v);
     ~Solution();
     friend ostream& operator<<(ostream& os, const Solution& s);
-    int getMaxValue(array data, int v); // 货物情况如data时，体积为v时可以拿到的最大物品价值总和
 };
 
 Solution::Solution(array data, int v)
 {
-    max_value = this->getMaxValue(data, v);
+    vector<int> dp(v + 1, 0);
+    for (size_t i = 0, e_i = data.size(); i < e_i; i++) {
+        for (size_t j = 0; j < data[i][0]; j++) {
+            for (size_t k = v; k >= data[i][1]; k--) {
+                dp[k] = max(dp[k], dp[k - data[i][1]] + data[i][2]);
+            }
+        }
+    }
+    this->max_value = dp[v];
 }
 Solution::~Solution()
 {
@@ -53,22 +43,13 @@ ostream& operator<<(ostream& os, const Solution& s)
     return os;
 }
 
-int Solution::getMaxValue(array data, int v)
-{
-    if (v == 0) {
-        return 0;
-    }
-}
-
 int main(int argc, char* argv[])
 {
     int n, v;
     cin >> n >> v;
-    array data;
-    int m, w, s;
+    array data(n, vector<int>(3, 0));
     for (size_t i = 0; i < n; i++) {
-        cin >> m >> w >> s;
-        data.insert(goods(m, w, s));
+        cin >> data[i][0] >> data[i][1] >> data[i][2];
     }
 
     Solution s(data, v);
