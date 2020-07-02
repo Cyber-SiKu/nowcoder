@@ -17,7 +17,6 @@ private:
     const int MAX = 1024;
     vector<int> tree;
     int length;
-    int height;
     vector<int> leaf;
 
 public:
@@ -46,8 +45,6 @@ Solution::Solution(const vector<int>& data)
     vector<int>::const_iterator end = data.cend();
     vector<int> sequence(start, middle);
     vector<int> in_order(middle, end);
-
-    this->height = 0;
 
     this->insert_tree(0, sequence, in_order);
 }
@@ -106,9 +103,6 @@ void Solution::insert_tree(const int& root, const vector<int>& sequence, const v
     if (!right_sequence.empty()) {
 
         this->insert_tree(root * 2 + 2, right_sequence, right_in_order);
-    }
-    if (!left_sequence.empty() || !right_sequence.empty()) {
-        this->height++;
     }
 }
 
