@@ -22,7 +22,7 @@ Solution::Solution(const int& n, const int& m)
         int a = 0;
         for (; a < max; a++) {
             for (int i = 0, j = a; i <= a && j >= 0; i++, j--) {
-                if (j > m || i > n) {
+                if (j >= m || i >= n) {
                     continue;
                 } else {
                     data[i][j] = k;
@@ -33,7 +33,7 @@ Solution::Solution(const int& n, const int& m)
         a--;
         for (int b = 1; b < max; b++) {
             for (int i = b, j = a; i <= a && j >= 0; i++, j--) {
-                if (j > m || i > n) {
+                if (j >= m || i >= n) {
                     continue;
                 } else {
                     data[i][j] = k;
@@ -55,7 +55,7 @@ ostream& operator<<(ostream& os, const Solution& s)
         for (int j = 1, e_j = i.size(); j < e_j; j++) {
             os << " " << i[j];
         }
-        os << " ";
+        os << endl;
     }
 
     return os;
