@@ -3,13 +3,11 @@
  * 
  * 大量的时间浪费在io上
  * 
- * 运行时间：2602ms
- * 占用内存：2296k
+ * 运行时间：821ms
+ * 占用内存：5228k
 */
-#include <algorithm>
-#include <iostream>
-#include <iterator>
-#include <string>
+
+#include <cstdio>
 #include <vector>
 
 using namespace std;
@@ -19,24 +17,22 @@ const int MAXSIZE = 100000+1;
 int main(int argc, char* argv[])
 {
     int m, n;
-    cin >> m >> n;
+    scanf("%d %d", &m, &n);
     vector<bool> data(MAXSIZE, false);
     for (size_t i = 0; i < m; i++) {
         for (size_t j = 0; j < n; j++) {
             int x;
-            cin >> x;
+            scanf("%d", &x);
             data[x] = true;
         }
     }
     int k;
-    cin >> k;
-    if (data[k] == true)
-    {
-        cout << "true";
+    scanf("%d", &k);
+    if (data[k] == true) {
+        printf("true\n");
     } else {
-        cout << "false";
+        printf("false\n");
     }
-    cout << endl;
     
     return 0;
 }
