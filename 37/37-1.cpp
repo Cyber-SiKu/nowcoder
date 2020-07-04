@@ -49,9 +49,6 @@ ostream& operator<<(ostream& os, const Solution& s)
 
 int Solution::getNumer(int m, int n, int pre)
 {
-    // if (this->dp[m][n] != 0) {
-    //     return this->dp[m][n];
-    // }
     if (m == 1 || n == 1 || m == 0) {
         // this->dp[m][n] = 1;
         return 1;
@@ -70,7 +67,6 @@ int Solution::getNumer(int m, int n, int pre)
         ret += this->getNumer(m - f, n - 1, f);
         f--;
     }
-    // this->dp[m][n] = ret;
     return ret;
 }
 

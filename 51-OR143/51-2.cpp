@@ -1,8 +1,8 @@
 /**
  * 算法优化：
  *  new 占用时间过大 故对mn判断
- * 运行时间：2234ms
- * 占用内存：35696k
+ * 运行时间：2226ms
+ * 占用内存：43544k
 */
 #include <algorithm>
 #include <iostream>
@@ -28,13 +28,13 @@ Solution::Solution(const vector<vector<int>>& data, const int& k)
 {
     outs = "false";
     for (const vector<int>& i : data) {
-        vector<int>::const_iterator begin = i.cbegin();
-        if (*begin > k) {
-            break;
-        }
         vector<int>::const_reverse_iterator rbegin = i.crbegin();
         if (*rbegin < k) {
             continue;
+        }
+        vector<int>::const_iterator begin = i.cbegin();
+        if (*begin > k) {
+            break;
         }
         if (find(i.cbegin(), i.cend(), k) != i.cend()) {
             outs = "true";
