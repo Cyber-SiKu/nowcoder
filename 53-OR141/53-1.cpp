@@ -8,7 +8,6 @@
  * 占用内存：376k
 */
 
-#include <cstdio>
 #include <iostream>
 #include <string>
 #include <vector>
@@ -46,8 +45,7 @@ Solution::~Solution()
 ostream& operator<<(ostream& os, const Solution& s)
 {
     for (const string& i : s.outs) {
-        // cout << i << endl;
-        printf("%s\n", i.c_str());
+        os << i << endl;
     }
 
     return os;
@@ -98,11 +96,9 @@ int main(int argc, char* argv[])
     int n;
     cin >> n;
     vector<string> passwords;
-    char p[100];
     for (size_t i = 0; i < n; i++) {
-        // cin >> p;
-        scanf("%s", p);
-        string password(p);
+        string password;
+        cin >> password;
         passwords.push_back(password);
     }
 
