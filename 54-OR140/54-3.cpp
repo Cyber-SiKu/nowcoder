@@ -3,8 +3,8 @@
  *  改递归为迭代
  *  改cin cout --> printf scanf
  * 
- * 运行时间：运行时间：10ms
- * 占用内存：1044k
+ * 运行时间：运行时间：9ms
+ * 占用内存：928k
 */
 #include <iostream>
 #include <vector>
