@@ -1,10 +1,10 @@
 /**
  * 算法优化：
  *  改递归为迭代
+ *  改cin cout --> printf scanf
  * 
- * 
- * 运行时间：32ms
- * 占用内存：952k
+ * 运行时间：运行时间：10ms
+ * 占用内存：1044k
 */
 #include <iostream>
 #include <vector>
@@ -42,7 +42,8 @@ Solution::~Solution()
 ostream& operator<<(ostream& os, const Solution& s)
 {
     for (const int& i : s.outs) {
-        os << i << endl;
+        // os << i << endl;
+        printf("%d\n", i);
     }
 
     return os;
@@ -69,7 +70,8 @@ int main(int argc, char* argv[])
     cin >> n;
     vector<int> data(n, 0);
     for (size_t i = 0; i < n; i++) {
-        cin >> data[i];
+        // cin >> data[i];
+        scanf("%d", &data[i]);
     }
 
     Solution s(data);
