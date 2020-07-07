@@ -32,27 +32,29 @@ int main(int argc, char* argv[])
     int n, m;
     cin >> n >> m;
 
-    vector<vector<int>> man(n + 1);
+    vector<vector<int>> man(n);
     for (size_t i = 0; i < n; i++) {
         int k;
         cin >> k;
         man[i].resize(k, 0);
         for (size_t j = 0; j < k; j++) {
             cin >> man[i][j];
+            man[i][j]--;
         }
     }
 
-    vector<vector<int>> woman(m + 1);
+    vector<vector<int>> woman(m);
     for (size_t i = 0; i < m; i++) {
         int k;
         cin >> k;
         woman[i].resize(k, 0);
         for (size_t j = 0; j < k; j++) {
             cin >> woman[i][j];
+            woman[i][j]--;
         }
     }
 
-    Solution s;
+    Solution s(man, woman);
 
     cout << s << endl;
     return 0;
