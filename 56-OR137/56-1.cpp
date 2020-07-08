@@ -46,15 +46,11 @@ Solution::Solution(const vector<vector<int>>& man, const vector<vector<int>>& wo
                 // isMeetMan[i] = true;
                 // isMeetWoman[pos] = true;
                 map[i][pos]-=2;
-                for(size_t k = 0; k < this->woman_number; ++k) {
-                    if(map[i][k] != 0) { 
-                        map[i][k]--;
-                    } 
+                for(const int& k : man[i]) {
+                    map[i][k]--;
                 }
-                for(size_t k = 0; k < this->man_number; ++k) {
-                    if(map[k][pos] != 0) {
-                        map[k][pos]--;
-                    }
+                for (const int& k : woman[pos]) {
+                    map[k][pos]--;
                 }
                 
             }
@@ -62,17 +58,13 @@ Solution::Solution(const vector<vector<int>>& man, const vector<vector<int>>& wo
                 map[i][pos]--;
                 if (find(man[i].cbegin(), man[i].cend(), pos) != man[i].cend()) {
                 //     isMeetWoman[pos] = false;
-                    for(size_t k = 0; k < this->woman_number; ++k) {
-                        if(map[i][k] !=0) { 
-                            map[i][k]--;
-                        } 
+                    for(const int& k : man[i]) {
+                        map[i][k]--;
                     }
                 } else {
                 //     isMeetWoman[pos] = true;
-                    for(size_t k = 0; k < this->man_number; ++k) {
-                        if(map[k][pos] != 0) {
-                            map[k][pos]--;
-                        }
+                    for(const int &k : woman[pos]) {
+                        map[k][pos]--;
                     }
                 }
             }
