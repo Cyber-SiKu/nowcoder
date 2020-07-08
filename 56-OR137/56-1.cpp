@@ -1,10 +1,11 @@
 #include <cstring>
 #include <iostream>
 #include <vector>
+#include <algorithm>
 
 using namespace std;
 
-const int MAXSIZE = 10000;
+const int MAXSIZE = 1000;
 class Solution {
 private:
     int out;
@@ -16,7 +17,7 @@ public:
     Solution(const vector<vector<int>>& man, const vector<vector<int>>& woman);
     ~Solution();
     friend ostream& operator<<(ostream& os, const Solution& s);
-    void translate2Matrix(const vector<vector<int>>& man, const vector<vector<int>>& woman);
+    int translate2Matrix(const vector<vector<int>>& man, const vector<vector<int>>& woman);
 };
 
 Solution::Solution(const vector<vector<int>>& man, const vector<vector<int>>& woman)
@@ -24,7 +25,62 @@ Solution::Solution(const vector<vector<int>>& man, const vector<vector<int>>& wo
     , woman_number(woman.size())
 {
     memset(this->map, 0, sizeof(this->map));
-    translate2Matrix(man, woman);
+    int all = translate2Matrix(man, woman);
+    // vector<bool> isMeetMan(this->man_number, false);
+    // vector<bool> isMeetWoman(this->woman_number, false);
+    int count = 0;
+    while (count < all) {
+        for (size_t i = 0; i < this->man_number; i++) {
+            int pos = 0;
+            for (size_t j = 1; j < this->woman_number; j++) {
+                if (this->map[i][j] == 2) {
+                    pos = j;
+                    break;
+                }
+                if (this->map[i][j] == 1) {
+                    pos = j;
+                }
+            }
+            count+= map[i][pos];
+            if (map[i][pos] == 2) {
+                // isMeetMan[i] = true;
+                // isMeetWoman[pos] = true;
+                map[i][pos]-=2;
+                for(size_t k = 0; k < this->woman_number; ++k) {
+                    if(map[i][k] != 0) { 
+                        map[i][k]--;
+                    } 
+                }
+                for(size_t k = 0; k < this->man_number; ++k) {
+                    if(map[k][pos] != 0) {
+                        map[k][pos]--;
+                    }
+                }
+                
+            }
+            if (map[i][pos] == 1) {
+                map[i][pos]--;
+                if (find(man[i].cbegin(), man[i].cend(), pos) != man[i].cend()) {
+                //     isMeetWoman[pos] = false;
+                    for(size_t k = 0; k < this->woman_number; ++k) {
+                        if(map[i][k] !=0) { 
+                            map[i][k]--;
+                        } 
+                    }
+                } else {
+                //     isMeetWoman[pos] = true;
+                    for(size_t k = 0; k < this->man_number; ++k) {
+                        if(map[k][pos] != 0) {
+                            map[k][pos]--;
+                        }
+                    }
+                }
+            }
+            this->out++;
+        }
+        
+    }
+    
 }
 
 Solution::~Solution()
@@ -37,19 +93,29 @@ ostream& operator<<(ostream& os, const Solution& s)
     return os;
 }
 
-void Solution::translate2Matrix(const vector<vector<int>>& man, const vector<vector<int>>& woman)
+int Solution::translate2Matrix(const vector<vector<int>>& man, const vector<vector<int>>& woman)
 {
+    int count = 0;
     for (size_t i = 0, e_i = man.size(); i < e_i; ++i) {
+        if (man[i].size() == 0) {
+            continue;
+        }
+        count++;
         for (size_t j = 0, e_j = man[i].size(); j < e_j; ++j) {
-            this->map[i][j]++;
+            this->map[i][man[i][j]]++;
         }
     }
 
     for (size_t i = 0, e_i = woman.size(); i < e_i; ++i) {
+        if (woman[i].size() == 0) {
+            continue;
+        }
+        count++;
         for (size_t j = 0, e_j = woman[i].size(); j < e_j; ++j) {
-            this->map[j][i]++;
+            this->map[woman[i][j]][i]++;
         }
     }
+    return count;
 }
 
 int main(int argc, char* argv[])
