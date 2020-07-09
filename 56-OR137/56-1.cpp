@@ -1,7 +1,11 @@
+/**
+ * 运行时间：4ms
+ * 占用内存：4240k
+*/
+#include <algorithm>
 #include <cstring>
 #include <iostream>
 #include <vector>
-#include <algorithm>
 
 using namespace std;
 
@@ -23,6 +27,7 @@ public:
 Solution::Solution(const vector<vector<int>>& man, const vector<vector<int>>& woman)
     : man_number(man.size())
     , woman_number(woman.size())
+    , out(0)
 {
     memset(this->map, 0, sizeof(this->map));
     int all = translate2Matrix(man, woman);
@@ -41,38 +46,35 @@ Solution::Solution(const vector<vector<int>>& man, const vector<vector<int>>& wo
                     pos = j;
                 }
             }
-            count+= map[i][pos];
+            count += map[i][pos];
             if (map[i][pos] == 2) {
                 // isMeetMan[i] = true;
                 // isMeetWoman[pos] = true;
-                map[i][pos]-=2;
-                for(const int& k : man[i]) {
+                map[i][pos] -= 2;
+                for (const int& k : man[i]) {
                     map[i][k]--;
                 }
                 for (const int& k : woman[pos]) {
                     map[k][pos]--;
                 }
-                
             }
             if (map[i][pos] == 1) {
                 map[i][pos]--;
                 if (find(man[i].cbegin(), man[i].cend(), pos) != man[i].cend()) {
-                //     isMeetWoman[pos] = false;
-                    for(const int& k : man[i]) {
+                    //     isMeetWoman[pos] = false;
+                    for (const int& k : man[i]) {
                         map[i][k]--;
                     }
                 } else {
-                //     isMeetWoman[pos] = true;
-                    for(const int &k : woman[pos]) {
+                    //     isMeetWoman[pos] = true;
+                    for (const int& k : woman[pos]) {
                         map[k][pos]--;
                     }
                 }
             }
-            this->out++;
         }
-        
+        this->out++;
     }
-    
 }
 
 Solution::~Solution()
