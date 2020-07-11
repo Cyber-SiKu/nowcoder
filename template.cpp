@@ -26,8 +26,6 @@ ostream& operator<<(ostream& os, const Solution& s)
 
 int main(int argc, char* argv[])
 {
-    Solution s;
-
-    cout << s << endl;
+    cout << Solution() << endl;
     return 0;
 }

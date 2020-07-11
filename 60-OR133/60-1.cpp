@@ -11,13 +11,13 @@ using namespace std;
 class Solution {
 private:
     string out;
+    static string score2string(const int& score);
+    static int passwd2score(const string& passwd);
 
 public:
     Solution(const string& passwd);
     ~Solution();
     friend ostream& operator<<(ostream& os, const Solution& s);
-    static string score2string(const int& score);
-    static int passwd2score(const string& passwd);
 };
 
 Solution::Solution(const string& passwd)
@@ -147,8 +147,6 @@ int main(int argc, char* argv[])
 {
     string passwd;
     cin >> passwd;
-    Solution s(passwd);
-
-    cout << s << endl;
+    cout << Solution(passwd) << endl;
     return 0;
 }
