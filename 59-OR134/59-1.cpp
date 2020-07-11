@@ -43,7 +43,7 @@ Solution::Solution(const int& a, const int& b)
     int min = this->length(a);
     int max = this->length(b);
     this->out = 0;
-    for(int i = min; i < max; ++i) {
+    for (int i = min; i < max; ++i) {
         this->out += long(1 << i);
     }
 
@@ -66,26 +66,28 @@ int Solution::length(int n)
     return ret;
 }
 
-int Solution::number2lucky(int n, int length) 
+int Solution::number2lucky(int n, int length)
 {
     int ret = 0;
     for (int i = 0, e = length; i < e; i++) {
         ret *= 10;
-        if ((1<<i) & n == 0) {
-            ret += 6;
-        } else {
-            ret += 8;
-        }
+        // if ((1<<i) & n == 0) {
+        //     ret += 6;
+        // } else {
+        //     ret += 8;
+        // }
+        ret += (6 + 2 * ((1 << i) & n));
     }
-    
+
     return ret;
 }
 
-int Solution::lessNumber(int n, int length) {
+int Solution::lessNumber(int n, int length)
+{
     int ret = 0;
-    for(int i = 0, end = ((1 << (length+1)) - 1); i < end; i++) {
+    for (int i = 0, end = ((1 << (length + 1)) - 1); i < end; i++) {
         int tmp = Solution::number2lucky(i, length);
-        if(tmp < n) {
+        if (tmp < n) {
             ret++;
         } else {
             break;
@@ -93,11 +95,12 @@ int Solution::lessNumber(int n, int length) {
     }
     return ret;
 }
-int Solution::lessEqualNumber(int n, int length) {
+int Solution::lessEqualNumber(int n, int length)
+{
     int ret = 0;
-    for(int i = 0, end = ((1 << (length+1)) - 1); i < end; i++) {
+    for (int i = 0, end = ((1 << (length + 1)) - 1); i < end; i++) {
         int tmp = Solution::number2lucky(i, length);
-        if(tmp <= n) {
+        if (tmp <= n) {
             ret++;
         } else {
             break;
