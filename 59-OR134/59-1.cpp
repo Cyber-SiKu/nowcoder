@@ -25,13 +25,13 @@ public:
     static int length(int n);
 
     // 将数字（二进制）转化为对应的幸运数字（0->6, 1->8）
-    static int number2lucky(int n, int length);
+    static int number2lucky(int n, const int& length);
 
     // 长度为length中的额幸运数字小于 n 的有多少个
-    static int lessNumber(int n, int length);
+    static int lessNumber(int n, const int& length);
 
     // 长度为length中的额幸运数字小于等于 n 的有多少个
-    static int lessEqualNumber(int n, int length);
+    static int lessEqualNumber(int n, const int& length);
 };
 
 Solution::Solution(const int& a, const int& b)
@@ -66,7 +66,7 @@ int Solution::length(int n)
     return ret;
 }
 
-int Solution::number2lucky(int n, int length)
+int Solution::number2lucky(int n, const int& length)
 {
     int ret = 0;
     for (int i = 0, e = length; i < e; i++) {
@@ -82,7 +82,7 @@ int Solution::number2lucky(int n, int length)
     return ret;
 }
 
-int Solution::lessNumber(int n, int length)
+int Solution::lessNumber(int n, const int& length)
 {
     int ret = 0;
     for (int i = 0, end = ((1 << (length + 1)) - 1); i < end; i++) {
@@ -95,7 +95,7 @@ int Solution::lessNumber(int n, int length)
     }
     return ret;
 }
-int Solution::lessEqualNumber(int n, int length)
+int Solution::lessEqualNumber(int n, const int& length)
 {
     int ret = 0;
     for (int i = 0, end = ((1 << (length + 1)) - 1); i < end; i++) {
