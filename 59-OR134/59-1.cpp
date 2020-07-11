@@ -40,11 +40,11 @@ Solution::Solution(const int& a, const int& b)
         out = -1;
         return;
     }
-    int min = this->length(a);
-    int max = this->length(b);
+    int min = Solution::length(a);
+    int max = Solution::length(b);
     this->out = 0;
-    for (int i = min; i < max; ++i) {
-        this->out += long(1 << i);
+    for (size_t i = min; i < max; ++i) {
+        this->out += (1 << i);
     }
 
     // 扣除min中不符合规则的
@@ -69,7 +69,7 @@ int Solution::length(int n)
 int Solution::number2lucky(int n, const int& length)
 {
     int ret = 0;
-    for (int i = 0, e = length; i < e; i++) {
+    for (size_t i = 0, e = length; i < e; i++) {
         ret *= 10;
         // if ((1<<i) & n == 0) {
         //     ret += 6;
@@ -85,9 +85,8 @@ int Solution::number2lucky(int n, const int& length)
 int Solution::lessNumber(int n, const int& length)
 {
     int ret = 0;
-    for (int i = 0, end = ((1 << (length + 1)) - 1); i < end; i++) {
-        int tmp = Solution::number2lucky(i, length);
-        if (tmp < n) {
+    for (size_t i = 0, end = ((1 << (length + 1)) - 1); i < end; i++) {
+        if (Solution::number2lucky(i, length) < n) {
             ret++;
         } else {
             break;
@@ -99,8 +98,7 @@ int Solution::lessEqualNumber(int n, const int& length)
 {
     int ret = 0;
     for (int i = 0, end = ((1 << (length + 1)) - 1); i < end; i++) {
-        int tmp = Solution::number2lucky(i, length);
-        if (tmp <= n) {
+        if (Solution::number2lucky(i, length) <= n) {
             ret++;
         } else {
             break;
