@@ -8,6 +8,8 @@ private:
 public:
     Solution(/* args */);
     ~Solution();
+    void slove();
+
     friend ostream& operator<<(ostream& os, const Solution& s);
     friend istream& operator>>(istream& is, Solution& s);
 };
@@ -19,6 +21,8 @@ Solution::Solution(/* args */)
 Solution::~Solution()
 {
 }
+
+void Solution::slove() { }
 
 ostream& operator<<(ostream& os, const Solution& s)
 {
