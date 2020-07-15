@@ -37,6 +37,7 @@ int main(int argc, char* argv[])
 {
     Solution s;
     cin >> s;
+    s.slove();
     cout << s << endl;
     return 0;
 }
