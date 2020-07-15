@@ -1,8 +1,8 @@
 /**
  * 算法思想：
  *  当找到顶点时 (两边比他小)，计算长度，找出最大的
- * 运行时间：225ms
- * 占用内存：36164k
+ * 运行时间：219ms
+ * 占用内存：36064k
 */
 #include <iostream>
 #include <vector>
@@ -16,13 +16,20 @@ public:
     {
         // 求最左
         int left = pos - 1;
-        while (num[left - 1] < num[left] && left != 0) {
-            --left;
-        }
 
         // 求最右
         int right = pos + 1;
         int max = num.size() - 1;
+
+        while (num[left - 1] < num[left] && left != 0 && num[right + 1] < num[right] && right != max) {
+            --left;
+            ++right;
+        }
+
+        while (num[left - 1] < num[left] && left != 0) {
+            --left;
+        }
+
         while (num[right + 1] < num[right] && right != max) {
             ++right;
         }
