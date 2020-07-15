@@ -1,6 +1,8 @@
 /**
  * 算法思想：
  *  当找到顶点时 (两边比他小)，计算长度，找出最大的
+ * 运行时间：225ms
+ * 占用内存：36164k
 */
 #include <iostream>
 #include <vector>
@@ -12,6 +14,20 @@ public:
     // 获取顶点为pos时的长度
     int getLength(int pos, const vector<int>& num)
     {
+        // 求最左
+        int left = pos - 1;
+        while (num[left - 1] < num[left] && left != 0) {
+            --left;
+        }
+
+        // 求最右
+        int right = pos + 1;
+        int max = num.size() - 1;
+        while (num[right + 1] < num[right] && right != max) {
+            ++right;
+        }
+
+        return right - left + 1;
     }
 
     /**
@@ -32,6 +48,16 @@ public:
                 high_point.push_back(i);
             }
         }
+
+        int ret = 0;
+        for (const int& i : high_point) {
+            int tmp = this->getLength(i, num);
+            if (tmp > ret) {
+                ret = tmp;
+            }
+        }
+
+        return ret;
     }
 };
 
