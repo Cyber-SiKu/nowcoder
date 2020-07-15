@@ -41,19 +41,15 @@ public:
         // write code here
 
         // 获取最高点
-        vector<int> high_point; // 存储顶点的位置
-        for (size_t i = 1, e = num.size() - 1; i < e; i++) {
+        // vector<int> high_point; // 存储顶点的位置
+        int ret = 0;
+        for (size_t i = 1, e = num.size() - 2; i < e; i++) {
             if (num[i - 1] < num[i] && num[i + 1] < num[i]) {
                 /* 顶点 */
-                high_point.push_back(i);
-            }
-        }
-
-        int ret = 0;
-        for (const int& i : high_point) {
-            int tmp = this->getLength(i, num);
-            if (tmp > ret) {
-                ret = tmp;
+                int tmp = this->getLength(i, num);
+                if (tmp > ret) {
+                    ret = tmp;
+                }
             }
         }
 
