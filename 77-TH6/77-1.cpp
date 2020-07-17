@@ -1,3 +1,7 @@
+/**
+ * 运行时间：35ms
+ * 占用内存：8100k
+*/
 #include <iostream>
 #include <string>
 
@@ -14,19 +18,17 @@ public:
     {
         // write code here
         string ret;
-        int count = 0;
+        string last;
+        // int count = 0;
         for (const char& i : s) {
             if (i == 'a') {
-                count++;
+                last += i;
             } else {
                 // ret.push_back(i);
                 ret += i;
             }
         }
-        for (size_t i = 0; i < count; i++) {
-            // ret.push_back('a');
-            ret += 'a';
-        }
+        ret += last;
         return ret;
     }
 };
