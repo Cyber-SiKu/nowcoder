@@ -26,7 +26,7 @@ public:
         // 初始化
 
         int dp[MAXSZIE][MAXSZIE];
-        memset(dp, 0x3f, sizeof(dp));
+        memset(dp, 0x5f, sizeof(dp));
         dp[0][0] = 0;
         for (size_t i = 0; i < packageSum.size(); i++) {
             for (int j = breadNum; j >= 0; j--) {
