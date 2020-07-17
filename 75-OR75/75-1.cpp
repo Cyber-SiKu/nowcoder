@@ -1,10 +1,13 @@
 #include <iostream>
+#include <vector>
 
 using namespace std;
 
 class Solution {
 private:
-    /* data */
+    int M, N;
+    vector<vector<int>> map;
+
 public:
     Solution(/* args */);
     ~Solution();
@@ -22,7 +25,7 @@ Solution::~Solution()
 {
 }
 
-void Solution::slove() { }
+void Solution::slove() {}
 
 ostream& operator<<(ostream& os, const Solution& s)
 {
@@ -30,6 +33,14 @@ ostream& operator<<(ostream& os, const Solution& s)
 }
 istream& operator>>(istream& is, Solution& s)
 {
+    is >> s.M >> s.N;
+    s.map.resize(s.M, vector<int>(s.N));
+    for (size_t i = 0; i < s.M; i++) {
+        for (size_t j = 0; j < s.N; j++) {
+            is >> s.map[i][j];
+        }
+    }
+
     return is;
 }
 
