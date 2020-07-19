@@ -37,11 +37,11 @@ public:
                 // -1
                 tmp.push_back(i - 1);
                 int i_2 = i * i;
-                if (abs(i_2 - m) > abs(i + 1 - m)) {
-                    tmp.push_back(i + 1);
-                } else {
-                    tmp.push_back(i_2);
+                if (i > m) {
+                    continue;
                 }
+                tmp.push_back(i + 1);
+                tmp.push_back(i_2);
             }
 
             // 检查新增的数字
