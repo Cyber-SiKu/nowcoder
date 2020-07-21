@@ -1,10 +1,13 @@
 #include <iostream>
+#include <string>
 
 using namespace std;
 
 class Solution {
 private:
-    /* data */
+    string in;
+    string out;
+
 public:
     Solution(/* args */);
     ~Solution();
@@ -22,14 +25,19 @@ Solution::~Solution()
 {
 }
 
-void Solution::slove() {}
+void Solution::slove()
+{
+    out.insert(out.end(), in.rbegin(), in.rend());
+}
 
 ostream& operator<<(ostream& os, const Solution& s)
 {
+    os << s.out;
     return os;
 }
 istream& operator>>(istream& is, Solution& s)
 {
+    getline(is, s.in);
     return is;
 }
 
