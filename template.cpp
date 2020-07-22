@@ -22,7 +22,7 @@ Solution::~Solution()
 {
 }
 
-void Solution::slove() { }
+void Solution::slove() {}
 
 ostream& operator<<(ostream& os, const Solution& s)
 {
@@ -36,8 +36,9 @@ istream& operator>>(istream& is, Solution& s)
 int main(int argc, char* argv[])
 {
     Solution s;
-    cin >> s;
-    s.slove();
-    cout << s << endl;
+    while (cin >> s) {
+        s.slove();
+        cout << s << endl;
+    }
     return 0;
 }
