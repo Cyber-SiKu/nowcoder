@@ -1,10 +1,11 @@
 #include <iostream>
+#include <string>
 
 using namespace std;
 
 class Solution {
 private:
-    /* data */
+
 public:
     Solution(/* args */);
     ~Solution();
@@ -22,7 +23,9 @@ Solution::~Solution()
 {
 }
 
-void Solution::slove() {}
+void Solution::slove()
+{
+}
 
 ostream& operator<<(ostream& os, const Solution& s)
 {
