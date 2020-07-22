@@ -19,7 +19,7 @@ public:
 };
 
 Solution::Solution(/* args */)
-    : data { 0, 1 }
+    : data { 0, 1, 1, 2 }
 {
 }
 
@@ -30,9 +30,16 @@ Solution::~Solution()
 void Solution::slove()
 {
     for (const int month : ins) {
-        for (size_t i = data.size(); i <= month; i++) {
-            /* code */
+        if (month > data.size()) {
+            int start = data.size();
+            data.resize(month + 1);
+            for (size_t i = start; i <= month; i++) {
+                /* code */
+                int sum = data[i - 1] + data[i - 2];
+                data[i] = sum;
+            }
         }
+        outs.push_back(data[month]);
     }
 }
 
