@@ -41,7 +41,7 @@ bool Solution::isMean(int n)
 {
     bool ret = true;
     for (int i = 2; i <= sqrt(n); i++) {
-        if ((n / i) * i == n) {
+        if (n % i == 0) {
             ret = false;
             break;
         }
