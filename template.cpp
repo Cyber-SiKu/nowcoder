@@ -1,11 +1,9 @@
 #include <iostream>
-#include <string>
 
 using namespace std;
 
 class Solution {
 private:
-
 public:
     Solution(/* args */);
     ~Solution();
@@ -39,9 +37,8 @@ istream& operator>>(istream& is, Solution& s)
 int main(int argc, char* argv[])
 {
     Solution s;
-    while (cin >> s) {
-        s.slove();
-        cout << s << endl;
-    }
+    cin >> s;
+    s.slove();
+    cout << s << endl;
     return 0;
 }
