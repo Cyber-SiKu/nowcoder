@@ -23,7 +23,7 @@ int main()
                 vector<int> tmp;
                 tmp.push_back(dp[i - 1][j] + 1);
                 tmp.push_back(dp[i][j - 1] + 1);
-                if (A[i] == B[j]) {
+                if (A[i - 1] == B[j - 1]) {
                     tmp.push_back(dp[i - 1][j - 1]);
                 } else {
                     tmp.push_back(dp[i - 1][j - 1] + 1);
