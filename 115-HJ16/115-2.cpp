@@ -19,24 +19,18 @@ public:
     {
         // write code here
         int count = N / 5;
-        vector<vector<int>> dp(N + 1, vector<int>(count + 1, 0));
-        for (int i = 1; i <= N; i++) {
-            for (int j = 1; j <= count; j++) {
-                if (j == 1) {
-                    dp[i][j] = 1;
-                } else {
-                    int start = max(4, i - (j - 1) * 5);
-                    for (int k = start; k >= 5; k--) {
-                        dp[i][j] = (dp[i][j] + dp[i - k][j - 1]) % MOD;
-                    }
-                }
+        vector<int> dp_N(max(N + 1, 6), 0);
+        vector<int> dp_count;
+        dp_count.push_back(0);
+        dp_N[5] = 1;
+        for (int i = 6; i <= N; i++) {
+            if (i % 5 == 0) {
+                ++count;
             }
+            dp[i] = (dp[i - 1] + count) % MOD;
         }
-        int out = 0;
-        for (size_t i = 1; i <= count; i++) {
-            out = (out + dp[N][i]) % MOD;
-        }
-        return out;
+
+        return dp[N];
     }
 };
 
@@ -44,6 +38,7 @@ int main(int argc, char* argv[])
 {
     Solution s;
 
+    cout << s.messageCount(4) << endl;
     cout << s.messageCount(10) << endl;
     cout << s.messageCount(11) << endl;
     cout << s.messageCount(15) << endl;
