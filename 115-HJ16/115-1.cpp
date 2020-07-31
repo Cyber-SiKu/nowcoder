@@ -44,9 +44,11 @@ int main(int argc, char* argv[])
 {
     Solution s;
 
+    cout << s.messageCount(4) << endl;
     cout << s.messageCount(10) << endl;
     cout << s.messageCount(11) << endl;
     cout << s.messageCount(15) << endl;
+    cout << s.messageCount(16) << endl;
     cout << s.messageCount(20) << endl;
 
     return 0;
