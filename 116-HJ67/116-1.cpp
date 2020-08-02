@@ -47,7 +47,7 @@ void Solution::slove()
 bool Solution::ableGetTaget(vector<int> data, const double target)
 {
     if (data.size() == 0) {
-        return abs(target) <= Solution::MIN;
+        return target <= Solution::MIN && target >= -Solution::MIN;
     }
 
     bool ret = false;
