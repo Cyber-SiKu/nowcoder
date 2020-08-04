@@ -15,26 +15,33 @@ public:
 	 */
 	string solve(int n, vector<int> &a) {
 		// write code here
-		vector<vector<string>> dp(n + 1, vector<string>(a.size(), ""));
-
-		for (int i = 1; i <= n; ++i) {
-			dp[i][0] = string(i / a[0], '1');
-			for (int j = 1; j < a.size(); ++j) {
-				for (int k = 0; k <= i / a[j]; ++k) {
-					string tmp(k, j + '1');
-					tmp.insert(tmp.size(), dp[i - k * a[j]][j - 1]);
-					if (dp[i][j].size() < tmp.size()
-							|| (dp[i][j].size() == tmp.size() && dp[i][j] < tmp)) {
-						dp[i][j] = tmp;
-					}
-				}
-
+		int miniValuePos = 8;
+		for (int i = 7; i >= 0; --i) {
+			if (a[i] < a[miniValuePos]) {
+				miniValuePos = i;
 			}
 		}
-		if (dp[n][a.size() - 1].size() == 0) {
-			dp[n][a.size() - 1] = "-1";
+
+		if (n < a[miniValuePos]) {
+			return "-1";
 		}
-		return dp[n][a.size() - 1];
+		int k = n / a[miniValuePos];
+		string ans(k, miniValuePos + '1');
+		int last = n % a[miniValuePos];
+		if (last == 0) {
+			return ans;
+		}
+		for (int i = 8, j = 0; i > miniValuePos; --i) {
+			while (a[i] <= a[miniValuePos] + last) {
+				ans[j] = '1' + i;
+				last -= (a[i] - a[miniValuePos]);
+				++j;
+			}
+			if (last == 0) {
+				break;
+			}
+		}
+		return ans;
 	}
 };
 
