@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <string>
+#include <algorithm>
 
 using namespace std;
 
@@ -14,6 +15,26 @@ public:
 	 */
 	string solve(int n, vector<int> &a) {
 		// write code here
+		vector<vector<string>> dp(n + 1, vector<string>(a.size(), ""));
+
+		for (int i = 1; i <= n; ++i) {
+			dp[i][0] = string(i / a[0], '1');
+			for (int j = 1; j < a.size(); ++j) {
+				for (int k = 0; k <= i / a[j]; ++k) {
+					string tmp(k, j + '1');
+					tmp.insert(tmp.size(), dp[i - k * a[j]][j - 1]);
+					if (dp[i][j].size() < tmp.size()
+							|| (dp[i][j].size() == tmp.size() && dp[i][j] < tmp)) {
+						dp[i][j] = tmp;
+					}
+				}
+
+			}
+		}
+		if (dp[n][a.size() - 1].size() == 0) {
+			dp[n][a.size() - 1] = "-1";
+		}
+		return dp[n][a.size() - 1];
 	}
 };
 
