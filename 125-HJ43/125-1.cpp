@@ -40,26 +40,26 @@ vector<pair<int, int>> getPath(const vector<vector<int>> &map) {
 
 	return ret;
 }
-
-int main(int argc, char **argv) {
-	int n, m;
-	while (cin >> n >> m) {
-		vector<vector<int>> map(n, vector<int>(m, 0));
-
-		for (int i = 0; i < n; ++i) {
-			for (int j = 0; j < m; ++j) {
-				cin >> map[i][j];
-			}
-		}
-
-		vector<pair<int, int>> path = getPath(map);
-
-		for (const pair<int, int> i : path) {
-			cout << "(" << i.first << "," << i.second << ")" << endl;
-		}
-	}
-
-	return 0;
-
-}
+//
+//int main(int argc, char **argv) {
+//	int n, m;
+//	while (cin >> n >> m) {
+//		vector<vector<int>> map(n, vector<int>(m, 0));
+//
+//		for (int i = 0; i < n; ++i) {
+//			for (int j = 0; j < m; ++j) {
+//				cin >> map[i][j];
+//			}
+//		}
+//
+//		vector<pair<int, int>> path = getPath(map);
+//
+//		for (const pair<int, int> i : path) {
+//			cout << "(" << i.first << "," << i.second << ")" << endl;
+//		}
+//	}
+//
+//	return 0;
+//
+//}
 
