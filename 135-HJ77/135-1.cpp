@@ -1,6 +1,7 @@
 #include <algorithm>
 #include <iostream>
 #include <queue>
+#include <set>
 #include <stack>
 #include <string>
 #include <vector>
@@ -39,7 +40,7 @@ vector<string> getOut(stack<char> s, queue<char> data)
         // 2. 不出栈接着输入元素
         stack<char> s_2 = s;
         queue<char> q_2 = data;
-        s.push(q_2.front());
+        s_2.push(q_2.front());
         q_2.pop();
         vector<string> ret_2 = getOut(s_2, q_2);
         ret.insert(ret.begin(), ret_2.begin(), ret_2.end());
@@ -60,10 +61,11 @@ int main()
         }
         stack<char> s;
         vector<string> output = getOut(s, data);
+        // output.erase(unique(output.begin(), output.end()), output.end());
         sort(output.begin(), output.end());
         for (const string& i : output) {
             for (const char& j : i) {
-                cout << i << " ";
+                cout << j << " ";
             }
             cout << endl;
         }
