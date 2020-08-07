@@ -13,7 +13,7 @@ vector<pair<int, int>> getMeasure(vector<pair<int, int>> data)
             int delta = (data[i].second - data[i - 1].second) / length;
             for (size_t k = 1; k < length; k++) {
                 int insert_value = A + delta * k;
-                data.insert(data.begin() + i + k, make_pair(data[i].first + k, insert_value));
+                data.insert(data.begin() + i + k - 1, make_pair(data[i - 1].first + k, insert_value));
             }
             i += (length - 1);
         }
