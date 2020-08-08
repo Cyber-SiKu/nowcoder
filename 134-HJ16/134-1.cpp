@@ -28,13 +28,18 @@ int maxValue(int n, const vector<good>& data, vector<int> position)
             vector<int> tmp;
             for (int k = i - 1; k >= 0; --k) {
                 tmp.push_back(dp[k][j - data[position[i]].v / 10]);
-                if (data[position[k]].q == -1) {
+                if (data[position[k]].q == -1 && data[position[i]].q != -1) {
                     break;
                 }
             }
             if (!tmp.empty()) {
+                int pre = (*max_element(tmp.begin(), tmp.end()));
+                if (data[position[i]].q != -1 && pre == 0) {
+                    // dp[i][j] = dp[i - 1][j];
+                    continue;
+                }
                 dp[i][j] = data[position[i]].v * data[position[i]].p;
-                dp[i][j] += (*max_element(tmp.begin(), tmp.end()));
+                dp[i][j] += pre;
             } else if (data[position[i]].q == -1) {
                 /* 当前位置位主件 */
                 dp[i][j] = data[position[i]].v * data[position[i]].p;
