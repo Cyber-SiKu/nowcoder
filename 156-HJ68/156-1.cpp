@@ -8,16 +8,16 @@
 
 using namespace std;
 
-template <class T>
-bool compare(const pair<string, int>& a, const pair<string, int>& b, T c)
+bool compare(const pair<string, int> &a, const pair<string, int> &b, function<bool(int, int)> c)
 {
     return c(a.second, b.second);
 }
 
-class Solution {
+class Solution
+{
 private:
     int sortNum;
-    unordered_map<int, function<bool(int, int)>> sortFunction;
+    unordered_map<int, function<bool(pair<string, int>, pair<string, int>)>> sortFunction;
     vector<pair<string, int>> nameScores;
 
 public:
@@ -25,14 +25,14 @@ public:
     ~Solution();
     void slove();
 
-    friend ostream& operator<<(ostream& os, const Solution& s);
-    friend istream& operator>>(istream& is, Solution& s);
+    friend ostream &operator<<(ostream &os, const Solution &s);
+    friend istream &operator>>(istream &is, Solution &s);
 };
 
 Solution::Solution(/* args */)
 {
-    sortFunction[0] = greater<int>();
-    sortFunction[1] = less<int>();
+    sortFunction[0] = bind(compare, placeholders::_1, placeholders::_2, greater<int>());
+    sortFunction[1] = bind(compare, placeholders::_1, placeholders::_2, less<int>());
 }
 
 Solution::~Solution()
@@ -41,38 +41,42 @@ Solution::~Solution()
 
 void Solution::slove()
 {
-    function<bool(int, int)> c = sortFunction[sortNum];
-    sort(this->nameScores.begin(), this->nameScores.end(), compare<c>);
+    function<bool(pair<string, int>, pair<string, int>)> c = sortFunction[sortNum];
+    stable_sort(this->nameScores.begin(), this->nameScores.end(), c);
 }
 
-ostream& operator<<(ostream& os, const Solution& s)
+ostream &operator<<(ostream &os, const Solution &s)
 {
-    for (const pair<string, int>& i : s.nameScores) {
-        cout << i.second << " " << i.second << endl;
+    for (const pair<string, int> &i : s.nameScores)
+    {
+        cout << i.first << " " << i.second << endl;
     }
 
     return os;
 }
-istream& operator>>(istream& is, Solution& s)
+istream &operator>>(istream &is, Solution &s)
 {
     int num;
     cin >> num;
     cin >> s.sortNum;
-    for (size_t i = 0; i < num; i++) {
-        string name;
+    s.nameScores.clear();
+    s.nameScores.resize(num);
+    for (size_t i = 0; i < num; i++)
+    {
         int score;
-        cin >> name >> score;
-        s.nameScores.push_back(make_pair(name, score));
+        cin >> s.nameScores[i].first >> s.nameScores[i].second;
     }
 
     return is;
 }
 
-int main(int argc, char* argv[])
+int main(int argc, char *argv[])
 {
     Solution s;
-    cin >> s;
-    s.slove();
-    cout << s;
+    while (cin >> s)
+    {
+        s.slove();
+        cout << s;
+    }
     return 0;
 }
