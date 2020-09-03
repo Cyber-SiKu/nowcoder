@@ -1,21 +1,17 @@
-class Stack
+class Population
 {
-public:
-    int getHeight(vector<int> men, int n)
+    string year;
+    int number;
+    int dead;
+    int birth;
+    Population(string year, int number, int dead, int birth) : year(year), number(number), birth(birth) {}
+    double birthRate()
     {
-        // write code here
-        vector<int> dp(n, 1);
-        for (int i = 1; i < n; ++i)
-        {
-            int j = i - 1;
-            for (; j >= 0; --j)
-            {
-                if (men[j] < men[i])
-                {
-                    dp[i] = max(dp[i], dp[j] + 1);
-                }
-            }
-        }
-        return *max_element(dp.begin(), dp.end());
+        return birth / number;
     }
+    double deadRate()
+    {
+        return dead / number;
+    }
+    ~Population() {}
 };
